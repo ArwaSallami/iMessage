@@ -1,14 +1,26 @@
 // const express = require("express");
 import express from "express";
 import "dotenv/config.js";
+import { clerkMiddleware } from "@clerk/express";
+import cors from "cors";
+
+import User from "./models/user.model.js";
+import { connectDB } from "./lib/db.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-// const cors = require("cors");
-// const bodyParser = require("body-parser");
-// const mongoose = require("mongoose");
-// const dotenv = require("dotenv");
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
-app.listen(3000, () => {
-  console.log("Server is running on port 123");
+app.use(express.json());
+app.use(cors({ origin: FRONTEND_URL, credentials: true }));
+app.use(clerkMiddleware());
+
+app.get("/health", async (req, res) => {
+  //  const { message, image, video } = req.body;
+  res.status(200).json({ ok: true });
+});
+
+app.listen(PORT, async () => {
+  await connectDB();
+  console.log(`Server is running on port ${PORT}`);
 });
