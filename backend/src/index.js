@@ -6,6 +6,7 @@ import cors from "cors";
 
 import fs from "fs";
 import path from "path";
+import job from "./lib/cron.js";
 
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
