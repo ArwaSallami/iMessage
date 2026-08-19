@@ -30,7 +30,7 @@ app.get("/health", async (req, res) => {
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
   app.get("/{*any}", (req, res, next) => {
-    res.sendFile(path.join(piblicDir, "index.html"), (err) => next(err));
+    res.sendFile(path.join(publicDir, "index.html"), (err) => next(err));
   });
 }
 
