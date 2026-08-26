@@ -6,9 +6,9 @@ function App() {
     <div>
       <h1>MY APP</h1>
       <header>
-        <Show when="signed-up">
-          <SignInButton mode="modal" />
-          <SignUpButton mode="modal" />
+        <Show when="signed-out">
+          <SignInButton mode="modal">Sign in</SignInButton>
+          <SignUpButton mode="modal">Sign up</SignUpButton>
         </Show>
         <Show when="signed-in">
           <UserButton />
