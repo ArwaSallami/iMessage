@@ -4,7 +4,9 @@ export async function connectDB() {
   const mongoUri = process.env.MONGO_URI;
 
   if (!mongoUri) {
-    console.warn("MONGO_URI is not set. Starting app without MongoDB connection.");
+    console.warn(
+      "MONGO_URI is not set. Starting app without MongoDB connection.",
+    );
     return false;
   }
 
