@@ -6,16 +6,14 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const signingSecret = process.env.CLERK_WEBHOOK_SINGNING_SECRET;
+    const signingSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
     if (!signingSecret) {
       res.status(503).json({ message: "Webhook secret is not provided" });
       return;
     }
 
-    const payload = Buffer.isBuffer(req.body)
-      ? req.body.toString("utf8")
-      : String(req.body);
-    const request = new Request("http:/internal/webhooks/clerk", {
+    const payload = Buffer.isBuffer(req.body) ? req.body.toString("utf8") : req.body;
+    const request = new Request("http://internal/webhooks/clerk", {
       method: "POST",
       headers: new Headers(req.headers),
       body: payload,
@@ -39,7 +37,7 @@ router.post("/", async (req, res) => {
 
       await User.findOneAndUpdate(
         { clerkId: u.id },
-        { clerk: u.id, email, fullName, profilePic: u.image_url },
+        { clerkId: u.id, email, fullName, profilePic: u.image_url },
         { new: true, upsert: true, setDefaultsOnInsert: true },
       );
     }

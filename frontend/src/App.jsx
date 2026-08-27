@@ -1,4 +1,4 @@
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/react";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/react";
 import "./App.css";
 
 function App() {
@@ -6,13 +6,17 @@ function App() {
     <div>
       <h1>MY APP</h1>
       <header>
-        <Show when="signed-out">
-          <SignInButton mode="modal">Sign in</SignInButton>
-          <SignUpButton mode="modal">Sign up</SignUpButton>
-        </Show>
-        <Show when="signed-in">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <button type="button">Sign in</button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <button type="button">Sign up</button>
+          </SignUpButton>
+        </SignedOut>
+        <SignedIn>
           <UserButton />
-        </Show>
+        </SignedIn>
       </header>
     </div>
   );
