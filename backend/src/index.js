@@ -10,6 +10,7 @@ import job from "./lib/cron.js";
 
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
@@ -37,6 +38,7 @@ app.get("/health", async (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 
 // if the public directly exists,serve the static files
 // this is for the production build
