@@ -111,6 +111,13 @@ export async function sendMessages(req, res) {
       video: videoUrl,
     });
     await newMessage.save();
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    //only send the message in real time to the receiver if they are online
+    if (receiverSocketId) {
+      server.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
     res.status(201).json(newMessage);
   } catch (error) {
     console.error("Error sending message:", error);

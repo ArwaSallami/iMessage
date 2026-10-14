@@ -14,8 +14,8 @@ import messageRoutes from "./routes/message.route.js";
 
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
+import { server, app } from "./lib/socket.js";
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -49,7 +49,7 @@ if (fs.existsSync(publicDir)) {
   });
 }
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
   await connectDB();
   console.log(`Server is running on port ${PORT}`);
 
