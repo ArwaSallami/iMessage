@@ -1,7 +1,7 @@
 import { Button, TextArea } from "@heroui/react";
 import { ImageIcon, LoaderIcon, SendHorizontalIcon } from "lucide-react";
 import { useRef } from "react";
-import useKeyboardSound from "../../hooks/useKeyboardSound";
+import useKeyboardSound from "../../hooks/useKeyboardsound";
 import { useChatStore } from "../../store/useChatStore";
 import { useSelectedConversation } from "../../hooks/useSelectedConversation";
 
