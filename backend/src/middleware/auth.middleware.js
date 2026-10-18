@@ -11,7 +11,10 @@ export async function protectRoute(req, res, next) {
     if (!user) {
       return res.status(404).json({ message: "User profile not synced yet" });
     }
+    req.user = user;
+    return next();
   } catch (error) {
+    console.error("Error in protectRoute:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }

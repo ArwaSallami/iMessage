@@ -1,5 +1,7 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
+import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
+import { getReceiverSocketId, server } from "../lib/socket.js";
 
 export async function getUsersForSidebar(req, res) {
   try {
@@ -96,7 +98,7 @@ export async function sendMessages(req, res) {
           .status(500)
           .json({ message: "Media configuration is missing" });
       }
-      const url = await uploadToImageKit(req.file);
+      const url = await uploadChatMedia(req.file);
       if (req.file.mimetype.startsWith("image/")) {
         imageUrl = url;
       } else if (req.file.mimetype.startsWith("video/")) {
