@@ -1,7 +1,11 @@
 import ImageKit, { toFile } from "@imagekit/nodejs";
 
+function getImageKitPrivateKey() {
+  return process.env.IMAGEKIT_PRIVATE_KEY || process.env.IMAGEKIT_API_KEY;
+}
+
 function hasImageKitConfig() {
-  return Boolean(process.env.IMAGEKIT_PRIVATE_KEY);
+  return Boolean(getImageKitPrivateKey());
 }
 
 //thi helper make a safe,unique filename for uploaded files
@@ -12,7 +16,7 @@ function createFileName(originalName = "upload") {
 
 async function uploadChatMedia(file) {
   const imagekit = new ImageKit({
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+    privateKey: getImageKitPrivateKey(),
   });
   const fileName = createFileName(file.originalname);
   const result = await imagekit.files.upload({
