@@ -26,13 +26,13 @@ io.on("connection", (socket) => {
   if (userId) userocketMap[userId] = socket.id;
 
   //io.emit sends the event to all connected clients-broadcast
-  io.emit("getonlineUsers", Object.keys(userocketMap));
+  io.emit("getOnlineUsers", Object.keys(userocketMap));
 
   // socket.on is used to listen for events from the client
   socket.on("disconnect", () => {
     // Remove the user from the online users map when they disconnect
     if (userId) delete userocketMap[userId];
-    io.emit("getonlineUsers", Object.keys(userocketMap));
+    io.emit("getOnlineUsers", Object.keys(userocketMap));
   });
 
   console.log("A user connected:", socket.id);
